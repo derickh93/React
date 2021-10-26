@@ -8,6 +8,7 @@ import {
   Label,
   Input,
   Col,
+  FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -23,10 +24,22 @@ class Contact extends Component {
       agree: false,
       contactType: "By Phone",
       feedback: "",
+      touched: {
+        firstName: false,
+        lastName: false,
+        phoneNum: false,
+        email: false,
+      },
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleBlur = (field) => () => {
+      this.setState({
+          touched:{...this.state.touched,[field]}
+      })
   }
 
   handleInputChange(event) {
@@ -103,6 +116,7 @@ class Contact extends Component {
                     name="firstName"
                     placeholder="First Name"
                     value={this.state.firstName}
+                    onBlur={this.handleBlur("firstName")}
                     onChange={this.handleInputChange}
                   />
                 </Col>
@@ -118,6 +132,7 @@ class Contact extends Component {
                     name="lastName"
                     placeholder="Last Name"
                     value={this.state.lastName}
+                    onBlur={this.handleBlur("lastName")}
                     onChange={this.handleInputChange}
                   />
                 </Col>
@@ -133,6 +148,7 @@ class Contact extends Component {
                     name="phoneNum"
                     placeholder="Phone number"
                     value={this.state.phoneNum}
+                    onBlur={this.handleBlur("phoneNum")}
                     onChange={this.handleInputChange}
                   />
                 </Col>
@@ -148,6 +164,7 @@ class Contact extends Component {
                     name="email"
                     placeholder="Email"
                     value={this.state.email}
+                    onBlur={this.handleBlur("email")}
                     onChange={this.handleInputChange}
                   />
                 </Col>
